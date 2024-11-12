@@ -1,0 +1,167 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #222020;
+    /* color: #ffffff; */
+}
+
+.menu {
+    /* Make it fix on the top right of the windows */
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    background-color: #4f4747;
+
+    button {
+        /* Buttons with svg inside. Cursor must show and no style for the button to just see the svg icon*/
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.content {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height:100vh;
+
+    > div {
+        width: 100%;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #000000;
+        border-radius: 5px;
+        background-color: #bcbcbc;
+        cursor: pointer;
+    
+        &:hover {
+            transform: scale(1.1);
+            /* background-color: #4f4747;
+            color: white; */
+        }
+    
+        &:active {
+            transform: scale(0.9);
+        }
+    }
+}
+
+.middle {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    min-height:95vh;
+    background-color: #4f4747;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(14, 13, 13, 0.2);
+    margin: 5px;
+
+    > button {
+        margin: 5px;
+        width: 100px;
+        background-color: rgb(255, 255, 255);
+    }
+
+    .bestof {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100px;
+        background-color:rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 5px;
+        padding-bottom: 10px;
+
+        .bestof-number {
+            display: flex;
+            flex-direction: row;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        button {
+            height: 25px;
+            text-align: center;
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+    }
+
+    .reset-buttons {
+        width: 100px;
+
+        button {
+            margin: 0%;
+            height: 53px;
+        }
+        button#reset-no {
+            background-color: #fe00007e;
+            color: #000;
+        }
+        button#reset-yes {
+            background-color: #5bff026a;
+            color: #000;
+        }
+    }
+}
+
+.button-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.score {
+    font-size: 50px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: #ffffff;
+}
+
+.team-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    button {
+        width: 75px;
+        height: 45px;
+        font-size: 25px;
+        text-align: center;
+        padding: 0px;
+        vertical-align: middle;
+    }
+
+    input {
+        padding: 10px;
+        font-size: 25px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 155px;
+        text-align: center;
+        font-weight: bold;
+    }
+}
+
+.hidden {
+    display: none;
+}
