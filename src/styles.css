@@ -6,14 +6,20 @@ body {
     /* color: #ffffff; */
 }
 
-.menu {
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.menu-buttons {
     /* Make it fix on the top right of the windows */
     position: fixed;
     top: 0;
     right: 0;
     display: flex;
     flex-direction: row;
-    background-color: #4f4747;
+    justify-content: space-between;
+    width: 50px;
+    margin: 5px;
 
     button {
         /* Buttons with svg inside. Cursor must show and no style for the button to just see the svg icon*/
@@ -22,8 +28,22 @@ body {
         border: none;
         padding: 0;
         margin: 0;
+
+        > svg {
+            /* Color of the svg icon */
+            fill: #ffffff;
+            /* Size of the svg icon */
+            width: 20px;
+            height: 20px;
+        }
     }
 }
+
+.crossRotate:active {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+ }
 
 .content {
     font-family: Arial, sans-serif;
@@ -164,4 +184,45 @@ body {
 
 .hidden {
     display: none;
+}
+
+.settings {
+    padding: 10px;
+    color: #ffffff;
+    font-size: 15px;
+
+    h1, h2, h3, h4 {
+        border-bottom: #79797c 1px solid;
+    }
+
+    .settings-shortcut {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: left;
+        
+        > div {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 35%;
+            margin: 3px 0;
+        }
+    }
+
+    code {
+        background-color: #444444;
+        padding: 2px;
+        border-radius: 5px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.help {
+    padding: 10px;
+    color: #ffffff;
 }

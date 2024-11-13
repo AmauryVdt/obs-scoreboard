@@ -145,33 +145,109 @@ window.addEventListener("DOMContentLoaded", () => {
   document.getElementById("increase_bestof")?.addEventListener("click", () => updateNumber("bestof", true));
   document.getElementById("decrease_bestof")?.addEventListener("click", () => updateNumber("bestof", false));
 
+  // switch teams
+  document.getElementById("switch-teams")?.addEventListener("click", () => switchTeams());
+  // Submit results
+  document.getElementById("submit-results")?.addEventListener("click", () => submitResults());
   // Reset board
   document.getElementById("reset")?.addEventListener("click", () => resetEvent(true, false));
   document.getElementById("reset-yes")?.addEventListener("click", () => resetEvent(false, true));
   document.getElementById("reset-no")?.addEventListener("click", () => resetEvent(false, false));
 
-  // Submit results
-  document.getElementById("submit-results")?.addEventListener("click", () => submitResults());
+  // Menu buttons
+  const mainContent = document.getElementById("content");
+  const settingsMenu = document.getElementById("settings-menu");
+  const helpMenu = document.getElementById("help-menu");
+  const settingsButton = document.getElementById("settings-button");
+  const helpButton = document.getElementById("help-button");
 
-  // switch teams
-  document.getElementById("switch-teams")?.addEventListener("click", () => switchTeams());
+  // Fonction to display one menu and hide the others
+  function showOnly(elementToShow: HTMLElement | null) {
+    mainContent?.classList.add('hidden');
+    settingsMenu?.classList.add('hidden');
+    helpMenu?.classList.add('hidden');
+
+    elementToShow?.classList.remove('hidden');
+  }
+
+  settingsButton?.addEventListener('click', () => {
+      if (settingsMenu?.classList.contains('hidden')) {
+        showOnly(settingsMenu);
+      } else {
+        showOnly(mainContent);
+      }
+  });
+
+  helpButton?.addEventListener('click', () => {
+      if (helpMenu?.classList.contains('hidden')) {
+        showOnly(helpMenu);
+      } else {
+        showOnly(mainContent);
+      }
+  });
 });
 
-const settingsButton = document.getElementById("settings-button");
-if (settingsButton) {
-  settingsButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    toggleAlwaysOnTop(true);
-    console.log("Settings button clicked");
-  });
+// Initialisation des variables
+const output = document.getElementById('output')!;
+const pressedKeys: Set<string> = new Set();
+
+// Mapping des touches spéciales pour suivre la convention Tauri
+const keyMap: { [key: string]: string } = {
+  Control: "Ctrl",
+  Alt: "Alt",
+  Shift: "Shift",
+  Meta: "Command" // Pour macOS, équivalent à la touche Windows sur PC
+};
+
+// Fonction pour normaliser le nom des touches en suivant la convention Tauri
+function formatKey(key: string): string {
+  return keyMap[key] || key; // Utiliser le mapping ou retourner la touche brute
 }
 
-const helpButton = document.getElementById("help-button");
-if (helpButton) {
-  helpButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    toggleAlwaysOnTop(false);
-    console.log("Help button clicked");
-  });
+// Fonction pour générer le raccourci formaté
+function getFormattedShortcut(): string {
+  // Trier les touches pour un affichage cohérent
+  return Array.from(pressedKeys)
+      .map(formatKey)
+      .sort() // Tri pour assurer un ordre cohérent
+      .join("+");
 }
+
+// Fonction pour mettre à jour l'affichage
+function updateOutput() {
+  const shortcut = getFormattedShortcut();
+  output.textContent = shortcut ? `Touches appuyées : ${shortcut}` : "Touches appuyées : ";
+}
+
+// Écouteur pour les touches enfoncées
+window.addEventListener('keydown', (event) => {
+  if (!event.repeat) { // Ignorer les événements répétés
+      pressedKeys.add(event.key);
+      updateOutput();
+  }
+});
+
+// Écouteur pour les touches relâchées
+window.addEventListener('keyup', (event) => {
+  pressedKeys.delete(event.key); // Supprime la touche relâchée
+  updateOutput();
+});
+
+// const settingsButton = document.getElementById("settings-button");
+// if (settingsButton) {
+//   settingsButton.addEventListener("click", (e) => {
+//     e.preventDefault();
+//     toggleAlwaysOnTop(true);
+//     console.log("Settings button clicked");
+//   });
+// }
+
+// const helpButton = document.getElementById("help-button");
+// if (helpButton) {
+//   helpButton.addEventListener("click", (e) => {
+//     e.preventDefault();
+//     toggleAlwaysOnTop(false);
+//     console.log("Help button clicked");
+//   });
+// }
 
